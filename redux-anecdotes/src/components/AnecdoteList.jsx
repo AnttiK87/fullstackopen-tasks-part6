@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { vote } from '../reducers/anecdoteReducer'
 import PropTypes from 'prop-types'
+import ShowNotification from './ShowNotification'
 
 const Anecdote = ({ anecdote, handleClick }) => {
     return (
@@ -29,17 +30,30 @@ const Anecdote = ({ anecdote, handleClick }) => {
 
 const Anecdotes = () => {
   const dispatch = useDispatch()
-  const anecdotes = useSelector(state => state)
+  const anecdotes = useSelector(state => {
+    //console.log(state)
+    if ( state.filter === 'ALL' ) {
+      return state.anecdotes
+    } 
+    const filter = state.filter
+    //console.log(filter)
+    return state.anecdotes.filter(anecdote =>
+      anecdote.content.toLowerCase().includes(filter.toLowerCase())
+  )
+  })
+  //console.log(anecdotes)
 
   return(
     <ul>
-      {anecdotes.sort((a, b) => b.votes - a.votes).map((anecdote, ) =>
+      {anecdotes.slice().sort((a, b) => b.votes - a.votes).map((anecdote) =>
         <Anecdote
             key={anecdote.id}
             anecdote={anecdote}
-            handleClick={() => 
-            dispatch(vote(anecdote.id))
-            }
+            handleClick={() => {
+              dispatch(vote(anecdote.id))
+              const message = `You added vote for: ${anecdote.content}`
+              ShowNotification(dispatch, message)
+            }}
         />          
       )}
     </ul>
