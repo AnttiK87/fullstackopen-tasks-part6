@@ -3,10 +3,12 @@ import anecdoteReducer from './anecdoteReducer'
 import filterReducer from './filterReducer'
 import messageReducer from './messageReducer'
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     anecdotes: anecdoteReducer,
     filter: filterReducer,
     message: messageReducer
   }
 })
+
+export default store
