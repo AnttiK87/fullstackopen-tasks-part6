@@ -1,15 +1,32 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createAnecdote  } from '../services/requests'
-import { useMessageDispatch } from '../MessageContext'
+import { useMessageDispatch } from '../useMessage'
+import showMessage from './showMessage'
 
 const AnecdoteForm = () => {
   const queryClient = useQueryClient()
   const dispatch = useMessageDispatch()
+  var message = null
 
   const newAnecdoteMutation = useMutation({ mutationFn: createAnecdote,
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['anecdotes'] })
+      //show message
+      message = `Anecdote added: ${data.content}`
+      showMessage(dispatch, message)
     },
+    onError: (error) => {
+      //console.log(error.status)
+      if (error.status === 400){
+        //show message
+        message = `Error: The anecdote was too short. Min. length 5 characters.`
+        showMessage(dispatch, message)
+      } else {
+        //show message
+        message = `Error: ${error.message}`
+        showMessage(dispatch, message)
+      }
+    }
    })
 
   const onCreate = (event) => {
@@ -17,13 +34,6 @@ const AnecdoteForm = () => {
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
     newAnecdoteMutation.mutate({ content, votes: 0 })
-    // Dispatchataan viesti kontekstiin
-    dispatch({ type: 'SET_MESSAGE', payload: `Anecdote added: ${content}` })
-    
-    // Tyhjennä viesti 5 sekunnin kuluttua
-    setTimeout(() => {
-      dispatch({ type: 'CLEAR_MESSAGE' })
-    }, 5000)
 }
 
   return (

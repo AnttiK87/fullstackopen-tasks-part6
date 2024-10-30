@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext } from 'react'
+import React, { createContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
 // Määritellään reducer
@@ -13,28 +13,20 @@ const messageReducer = (state, action) => {
   }
 }
 
-// Luodaan kontekstit
-const MessageStateContext = createContext()
-const MessageDispatchContext = createContext()
+// Luodaan konteksti
+export const MessageContext = createContext()
 
 // Tarjoaja, joka käärii komponentit ja antaa tilan käyttöön
-export const MessageProvider = ({ children }) => {
-  const [message, dispatch] = useReducer(messageReducer, null)
+export const MessageContextProvider = ({ children }) => {
+  const [message, messageDispatch] = useReducer(messageReducer, null)
 
   return (
-    <MessageStateContext.Provider value={message}>
-      <MessageDispatchContext.Provider value={dispatch}>
+    <MessageContext.Provider value={[message, messageDispatch]}>
         {children}
-      </MessageDispatchContext.Provider>
-    </MessageStateContext.Provider>
+    </MessageContext.Provider>  
   )
 }
 
-// Määritetään PropTypes
-MessageProvider.propTypes = {
+MessageContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 }
-
-// Kustomoidut hookit tilan ja dispatchin käyttöön
-export const useMessageValue = () => useContext(MessageStateContext)
-export const useMessageDispatch = () => useContext(MessageDispatchContext)
