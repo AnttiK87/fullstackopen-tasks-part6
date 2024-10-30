@@ -1,8 +1,10 @@
+//for rendering anecdotes to anecdote list
 import { useDispatch, useSelector } from 'react-redux'
 import { vote } from '../reducers/anecdoteReducer'
 import PropTypes from 'prop-types'
 import { showMessage } from '../reducers/messageReducer'
 
+//Single item of the list
 const Anecdote = ({ anecdote, handleClick }) => {
     return (
       <li>
@@ -19,6 +21,7 @@ const Anecdote = ({ anecdote, handleClick }) => {
     )
   }
 
+  //setting prop types
   Anecdote.propTypes = {
     anecdote: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -28,6 +31,7 @@ const Anecdote = ({ anecdote, handleClick }) => {
     handleClick: PropTypes.func.isRequired,
   };
 
+  //Getting anecdotes and setting filtering
 const Anecdotes = () => {
   const dispatch = useDispatch()
   const anecdotes = useSelector(state => {
@@ -42,6 +46,7 @@ const Anecdotes = () => {
   )
   })
 
+  //rendering anecdote list and sorting according to votes 
   return(
     <ul>
       {anecdotes.slice().sort((a, b) => b.votes - a.votes).map((anecdote) =>

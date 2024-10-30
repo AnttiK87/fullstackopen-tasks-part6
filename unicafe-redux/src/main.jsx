@@ -4,8 +4,10 @@ import ReactDOM from 'react-dom/client'
 import { createStore } from 'redux'
 import reducer from './reducer'
 
+//setting redux store
 const store = createStore(reducer)
 
+//functionalities for buttons 
 const App = () => {
   const good = () => {
     store.dispatch({
@@ -31,6 +33,7 @@ const App = () => {
     })
   }
 
+  //model how application is rendered
   return (
     <div>
       <button onClick={good}>good</button> 
@@ -44,6 +47,7 @@ const App = () => {
   )
 }
 
+//rendering the application
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 const renderApp = () => {

@@ -1,3 +1,5 @@
+//For filtering anecdotes
+
 import { useDispatch } from 'react-redux'
 import { filterChange } from '../reducers/filterReducer'
 
@@ -7,6 +9,7 @@ const AnecdoteFilter = () => {
   const filterAnecdote = (event) => {
 
     event.preventDefault()
+    //if filter inputfield is empu use 'ALL' otherwise use inputfield value
     const filter = event.target.value === '' ? 'ALL' : event.target.value
     //console.log(filter)
     dispatch(filterChange(filter))

@@ -1,3 +1,4 @@
+// for rendering the main structure of anecdote application
 import { useEffect } from 'react'
 import AnecdoteList  from "./components/AnecdoteList"
 import AnecdoteForm  from "./components/NewAnecdote"

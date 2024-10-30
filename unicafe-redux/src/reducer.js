@@ -1,3 +1,4 @@
+// Settin reducer for counter
 const initialState = {
   good: 0,
   ok: 0,

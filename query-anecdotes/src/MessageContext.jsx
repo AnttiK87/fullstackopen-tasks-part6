@@ -1,7 +1,8 @@
+//settin useREducer and Context api
 import React, { createContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
-// Määritellään reducer
+// defining reducer for messages
 const messageReducer = (state, action) => {
   switch (action.type) {
     case 'SET_MESSAGE':
@@ -13,10 +14,10 @@ const messageReducer = (state, action) => {
   }
 }
 
-// Luodaan konteksti
+// creating context
 export const MessageContext = createContext()
 
-// Tarjoaja, joka käärii komponentit ja antaa tilan käyttöön
+// Provider for defining component and state
 export const MessageContextProvider = ({ children }) => {
   const [message, messageDispatch] = useReducer(messageReducer, null)
 

@@ -1,3 +1,5 @@
+//reducer for anecdotes
+
 import { createSlice } from '@reduxjs/toolkit'
 import anecdoteService from '../services/anecdotes'
 
@@ -16,6 +18,7 @@ const anecdoteSlice = createSlice({
 
 export const { appendAnecdote, setAnecdotes } = anecdoteSlice.actions
 
+//setting anecdotes at db to current state
 export const initializeAnecdotes = () => {
   return async dispatch => {
     const anecdotes = await anecdoteService.getAll()
@@ -23,6 +26,7 @@ export const initializeAnecdotes = () => {
   }
 }
 
+//Creating new anecdote and setting it to the state
 export const createAnecdote = content => {
   return async dispatch => {
     const newAnecdote = await anecdoteService.createNew(content)
@@ -30,6 +34,7 @@ export const createAnecdote = content => {
   }
 }
 
+//Updating vote count and setting it to the state
 export const vote = (content) => {
   return async dispatch => {
     const updatedAnecdote = await anecdoteService.update(content)

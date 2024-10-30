@@ -1,3 +1,4 @@
+// Main jsx for renderin app with React query and Context API set
 import ReactDOM from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { MessageContextProvider } from './MessageContext'

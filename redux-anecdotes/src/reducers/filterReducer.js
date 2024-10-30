@@ -1,3 +1,4 @@
+//reducer for filtes
 import { createSlice } from '@reduxjs/toolkit'
 
 const filterSlice = createSlice({

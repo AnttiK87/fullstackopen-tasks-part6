@@ -1,3 +1,4 @@
+//reducer for messages
 import { createSlice } from '@reduxjs/toolkit'
 
 const messageSlice = createSlice({
@@ -12,6 +13,8 @@ const messageSlice = createSlice({
   
 export const { setMessages } = messageSlice.actions
 
+//function for showing and hiding message after a delay
+//takes message and display time as parameters
 export const showMessage = (message, displayTime) => {
   return async dispatch => {
     let timeoutId

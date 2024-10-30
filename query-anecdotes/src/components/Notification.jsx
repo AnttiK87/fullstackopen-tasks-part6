@@ -1,8 +1,13 @@
+// Component for showing messages to the user
+
+//dependencies
 import { useMessageValue } from '../useMessage'
 
 const Notification = () => {
+  //message is passed with reacts useReducer and Context API 
   const message = useMessageValue()
 
+  //style and display type is used to show and hide messages
   const style = {
     border: 'solid',
     padding: 10,
@@ -11,6 +16,7 @@ const Notification = () => {
     display: message === null ? 'none' : 'inline-block'
   }
 
+  //rendering the message
   return (
     <div style={style}>
       {message}
@@ -18,4 +24,5 @@ const Notification = () => {
   )
 }
 
+//exports
 export default Notification
